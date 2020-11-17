@@ -41,8 +41,8 @@ public class SettingsButtonHandler implements ButtonHandler{
 					System.out.println("change display variable in settings savefile");
 					break;
 					
-				case "SETTING 2": 
-					System.out.println("settings");
+				case "MUTE": 
+					Main.mc.mute();
 					break;
 					
 				case "BACK": 

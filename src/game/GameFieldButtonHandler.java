@@ -10,13 +10,15 @@ import libary.Button;
 
 public class GameFieldButtonHandler implements ButtonHandler {
 	private Button[][] field;
+	private Button skipTrackButton;
 	private Point markedButton = new Point(500, 0);
 	GameField gf;
 
 //Constructor ------------------------------------------------------------------------------------------
-	public GameFieldButtonHandler(GameField gf, Button[][] field) {
+	public GameFieldButtonHandler(GameField gf, Button[][] field, Button skipTrackButton) {
 		this.field = field;
 		this.gf = gf;
+		this.skipTrackButton = skipTrackButton;
 	}
 
 //methods ----------------------------------------------------------------------------------------------
@@ -34,7 +36,13 @@ public class GameFieldButtonHandler implements ButtonHandler {
 
 	@Override
 	public void checkMouseInput(int x, int y) {		
-		//check schachfeld
+		//check UI
+		if(skipTrackButton.contains(x, y)) {
+			Main.mc.nextSong("background");
+			return;
+		}
+		
+		//check schachfeld		
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field.length; j++) {
 				if (field[i][j].contains(x, y)) {

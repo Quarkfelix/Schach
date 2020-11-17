@@ -18,6 +18,7 @@ public class GameField implements Scene {
 	private Button[][] field = new Button[8][8];
 	private TextArea player1;
 	private TextArea player2;
+	private Button skipTrackButton;
 	private GameFieldButtonHandler buttonHandler;
 	int x = 0;
 	int y = 0;
@@ -40,7 +41,7 @@ public class GameField implements Scene {
 		setupUI();
 		setupField();
 		startingFormation();
-		buttonHandler = new GameFieldButtonHandler(this, field);
+		buttonHandler = new GameFieldButtonHandler(this, field, skipTrackButton);
 	}
 
 // ======================================== RUN-METHOD =========================================
@@ -56,31 +57,48 @@ public class GameField implements Scene {
 
 	private void setupUI() {
 		setupTextFields();
+		setupButtons();
+	}
+
+	private void setupButtons() {
+		x = (int) ((GeneralSettings.screenWidth - 1920) / 2);
+		y = (int) ((GeneralSettings.screenHeight - 1080) / 2);
+		int width = 250;
+		int height = 70;
+
+		skipTrackButton = new Button(x + 70, y + 300, width, height);
+		skipTrackButton.setText("SKIP MUSIC");
+		skipTrackButton.setColor(UIbuttonColor);
+		skipTrackButton.setBorderColor(buttonBorderColor);
+		skipTrackButton.setTextColor(Color.BLACK);
+		skipTrackButton.setTextAlignment(Textalign.mittig);
+		skipTrackButton.setTextFontSize(35);
 	}
 
 	private void setupTextFields() {
-		x = (int) ((GeneralSettings.screenWidth - width) / 2);
-		y = (int) ((GeneralSettings.screenHeight - height) / 2);
+		x = (int) ((GeneralSettings.screenWidth - 1920) / 2);
+		y = (int) ((GeneralSettings.screenHeight - 1080) / 2);
+		
 		int width = 250;
 		int height = 90;
-		player1 = new TextArea((int) (x - width * 1.2), (int) (y + this.height * 0.02), width, height);
-		player2 = new TextArea((int) (x + this.width + width * 0.2), (int) (y + this.height * 0.02), width, height);
+		player1 = new TextArea((int) (x + 100), (int) (y + 40), width, height);
+		player2 = new TextArea((int) (x + 1570), (int) (y + 40), width, height);
 
 		player1.setText("PLAYER1");
 		player1.setThiccness(3);
 		player1.setTextAlignment("zentriert");
 		player1.setTextAlignmentVertical("center");
-		player1.setBackgroundColor(new Color(5, 5, 5));
+		player1.setBackgroundColor(new Color(20, 20, 20));
 		player1.setTextColor(Color.WHITE);
-		player1.setFramingColor(Color.RED);
+		player1.setFramingColor(new Color(158, 0, 0));
 
 		player2.setText("PLAYER2");
 		player2.setThiccness(3);
 		player2.setTextAlignment("zentriert");
 		player2.setTextAlignmentVertical("center");
-		player2.setBackgroundColor(new Color(5, 5, 5));
+		player2.setBackgroundColor(new Color(20, 20, 20));
 		player2.setTextColor(Color.WHITE);
-		player2.setFramingColor(new Color(31, 31, 31));
+		player2.setFramingColor(new Color(15, 15, 15));
 	}
 
 	public void setupField() {
@@ -151,26 +169,26 @@ public class GameField implements Scene {
 		field[6][6].setText("BW");
 		field[7][6].setText("BW");
 	}
-	
+
 	public void switchSides() {
 		if (activePlayer.equals("B")) {
 			activePlayer = "W";
-			player2.setFramingColor(Color.RED);
-			player1.setFramingColor(new Color(31, 31, 31));
+			player2.setFramingColor(new Color(158, 0, 0));
+			player1.setFramingColor(new Color(15, 15, 15));
 		} else {
 			activePlayer = "B";
-			player1.setFramingColor(Color.RED);
-			player2.setFramingColor(new Color(31, 31, 31));
+			player1.setFramingColor(new Color(158, 0, 0));
+			player2.setFramingColor(new Color(15, 15, 15));
 		}
 	}
-	
+
 	public void markStone(int x, int y) {
 		markedStoneX = field[x][y].getX();
 		markedStoneY = field[x][y].getY();
 	}
 
 // ======================================== GET/SET METHODS ====================================
-	
+
 	@Override
 	public ButtonHandler getButtonHandler() {
 		return buttonHandler;
@@ -190,9 +208,9 @@ public class GameField implements Scene {
 		markedStoneX = 500;
 		markedStoneY = 500;
 	}
-	
+
 // ======================================== PAINT-METHODS ======================================
-	
+
 	@Override
 	public void paint(Graphics2D g) {
 		drawBackground(g);
@@ -201,6 +219,7 @@ public class GameField implements Scene {
 			drawMarker(g);
 		}
 		drawTextAreas(g);
+		drawUIButtons(g);
 	}
 
 	private void drawBackground(Graphics2D g) {
@@ -219,6 +238,10 @@ public class GameField implements Scene {
 	private void drawMarker(Graphics2D g) {
 		g.setColor(Color.RED);
 		g.drawOval(markedStoneX, markedStoneY, width / field.length, height / field.length);
+	}
+
+	private void drawUIButtons(Graphics2D g) {
+		skipTrackButton.paint(g);
 	}
 
 	private void drawTextAreas(Graphics2D g) {
