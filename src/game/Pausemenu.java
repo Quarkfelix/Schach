@@ -1,24 +1,20 @@
-package mainmenu;
+package game;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import infrastructure.ButtonHandler;
+import infrastructure.Main;
 import infrastructure.Scene;
 import libary.Button;
-import libary.Screenkeyboard;
 import settings.GeneralSettings;
 import settings.MainMenuSettings;
+import settings.PausemenuSettings;
 
-public class MainMenu implements Scene {
-	private String name = "mainmenu";
+public class Pausemenu implements Scene {
+	private PausemenuButtonHandler buttonHandler;
 	private ArrayList<Button> buttons = new ArrayList<>();
-	public static MainMenuButtonHandler buttonHandler;
 
 	// Settings
 	private Color backgroundColor;
@@ -28,11 +24,11 @@ public class MainMenu implements Scene {
 
 // ======================================== CONSTRUCTOR ========================================
 	
-	public MainMenu() {
+	public Pausemenu() {
 		importSettings();
 		addButtons();
 		setUpButtons();
-		buttonHandler = new MainMenuButtonHandler(buttons);
+		buttonHandler = new PausemenuButtonHandler(buttons);
 	}
 	
 // ======================================== RUN-METHOD =========================================	
@@ -40,10 +36,10 @@ public class MainMenu implements Scene {
 // ======================================== METHODS ============================================
 	
 	private void importSettings() {
-		backgroundColor = MainMenuSettings.backgroundColor;
-		buttonColor = MainMenuSettings.buttonColor;
-		buttonBorderColor = MainMenuSettings.buttonBorderColor;
-		buttonTextColor = MainMenuSettings.buttonTextColor;
+		backgroundColor = PausemenuSettings.backgroundColor;
+		buttonColor = PausemenuSettings.buttonColor;
+		buttonBorderColor = PausemenuSettings.buttonBorderColor;
+		buttonTextColor = PausemenuSettings.buttonTextColor;
 	}
 
 	private void addButtons() {
@@ -58,19 +54,19 @@ public class MainMenu implements Scene {
 		int y = (int) ((GeneralSettings.screenHeight - height) / 2);
 		int x = (int) ((GeneralSettings.screenWidth - width) / 2);
 
-		// setup Playbutton
+		// resume
 		buttons.get(0).setY(y / 2);
-		buttons.get(0).setText("PLAY");
+		buttons.get(0).setText("RESUME");
 
-		// setup Settingsbutton
+		// settings
 		buttons.get(1).setY(y);
 		buttons.get(1).setText("SETTINGS");
 
-		// setup Quitbutton
+		// menu
 		buttons.get(2).setY(y + y / 2);
-		buttons.get(2).setText("QUIT");
+		buttons.get(2).setText("MENU");
 
-		// overall design
+		//general
 		for (Button button : buttons) {
 			button.setX(x);
 			button.setWidth(width);
@@ -83,7 +79,7 @@ public class MainMenu implements Scene {
 	}
 	
 // ======================================== GET/SET METHODS ====================================
-
+	
 	@Override
 	public ButtonHandler getButtonHandler() {
 		return buttonHandler;
@@ -93,6 +89,7 @@ public class MainMenu implements Scene {
 	
 	@Override
 	public void paint(Graphics2D g) {
+		Main.sc.getScene("gamefield").paint(g);
 		drawBackground(g);
 		drawButtons(g);
 	}
@@ -101,7 +98,7 @@ public class MainMenu implements Scene {
 		g.setColor(backgroundColor);
 		g.fillRect(0, 0, GeneralSettings.screenWidth, GeneralSettings.screenHeight);
 	}
-
+	
 	private void drawButtons(Graphics2D g) {
 		buttons.forEach((v) -> v.paint(g));
 	}

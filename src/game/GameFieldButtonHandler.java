@@ -24,7 +24,7 @@ public class GameFieldButtonHandler implements ButtonHandler {
 	public void checkKeyInput(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_ESCAPE:
-			System.exit(0);
+			Main.sc.setSceneActive("pausemenu");
 			break;
 
 		default:
@@ -33,39 +33,57 @@ public class GameFieldButtonHandler implements ButtonHandler {
 	}
 
 	@Override
-	public void checkMouseInput(int x, int y) {
+	public void checkMouseInput(int x, int y) {		
+		//check schachfeld
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field.length; j++) {
 				if (field[i][j].contains(x, y)) {
 					if (field[i][j].getText().equals("")) {
-						System.out.println("leeres feld");
-						if (positionOK(i, j) && markedButton.x != 500) {
+						// empty field
+						if (markedButton.x != 500) { // move
+							if (positionOK(i, j)) {
+								gf.setMoveStone(markedButton.x, markedButton.y, i, j);
+								markedButton.setLocation(500, 0);
+								gf.removeMark();
+								gf.switchSides();
+							}
+						}
+					} else if (field[i][j].getText().substring(1, 2).equals(gf.activePlayer)) { // select stone
+						gf.markStone(i, j);
+						markedButton.setLocation(i, j);
+					} else if (markedButton.x != 500) { // move
+						if (positionOK(i, j)) {
 							gf.setMoveStone(markedButton.x, markedButton.y, i, j);
 							markedButton.setLocation(500, 0);
 							gf.removeMark();
 							gf.switchSides();
+							checkWinCondition();
 						}
-					} else if (field[i][j].getText().substring(1, 2).equals(gf.activePlayer) && markedButton.x == 500) {
-						System.out.println("marked field");
-						gf.markStone(i, j);
-						markedButton.setLocation(i, j);
-					} else if (positionOK(i, j)) {
-						gf.setMoveStone(markedButton.x, markedButton.y, i, j);
-						markedButton.setLocation(500, 0);
-						gf.removeMark();
-						gf.switchSides();
-					} 
+					}
 				}
 			}
 		}
 	}
 
+	private boolean checkWinCondition() {
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field.length; j++) {
+				if(field[i][j].getText().equals("KW")) {
+					System.out.println("Weiß gewonnen");
+				} else if (field[i][j].getText().equals("KB")) {
+					System.out.println("schwarz gewonen");
+				}
+			}
+		}
+		return false;
+	}
+	
+	//ist die logik hinter dem game. 
 	private boolean positionOK(int x, int y) {
 		if (field[x][y].getText().equals("")) { // leeres feld
 			// nur steinspezifische sachen prüfen
 		} else {
-			if (field[x][y].getText().substring(1, 2).equals(gf.activePlayer)) { // return false wenn ziel auf eigenem
-																					// feld
+			if (field[x][y].getText().substring(1, 2).equals(gf.activePlayer)) { // wenn auf eigenem feld
 				return false;
 			}
 		}
@@ -106,9 +124,46 @@ public class GameFieldButtonHandler implements ButtonHandler {
 				}
 				return true;
 			}
-			
-		case "S" :
-			return true;
+
+		case "S":
+			if (oldx + 2 == x) {
+				if (oldy - 1 == y) {
+					if (field[x][y].getText().equals("") || !field[x][y].getText().substring(1).equals(gf.activePlayer))
+						return true;
+				}
+				if (oldy + 1 == y) {
+					if (field[x][y].getText().equals("") || !field[x][y].getText().substring(1).equals(gf.activePlayer))
+						return true;
+				}
+			} else if (oldx - 2 == x) {
+				if (oldy - 1 == y) {
+					if (field[x][y].getText().equals("") || !field[x][y].getText().substring(1).equals(gf.activePlayer))
+						return true;
+				}
+				if (oldy + 1 == y) {
+					if (field[x][y].getText().equals("") || !field[x][y].getText().substring(1).equals(gf.activePlayer))
+						return true;
+				}
+			} else if (oldy + 2 == y) {
+				if (oldx - 1 == x) {
+					if (field[x][y].getText().equals("") || !field[x][y].getText().substring(1).equals(gf.activePlayer))
+						return true;
+				}
+				if (oldx + 1 == x) {
+					if (field[x][y].getText().equals("") || !field[x][y].getText().substring(1).equals(gf.activePlayer))
+						return true;
+				}
+			} else if (oldy - 2 == y) {
+				if (oldx - 1 == x) {
+					if (field[x][y].getText().equals("") || !field[x][y].getText().substring(1).equals(gf.activePlayer))
+						return true;
+				}
+				if (oldx + 1 == x) {
+					if (field[x][y].getText().equals("") || !field[x][y].getText().substring(1).equals(gf.activePlayer))
+						return true;
+				}
+			}
+			return false;
 
 		case "L":
 			// ziel muss diagonal sein und auf diagonaler linie darf nichts sein
@@ -150,17 +205,17 @@ public class GameFieldButtonHandler implements ButtonHandler {
 			} else {
 				return false;
 			}
-			
+
 		case "K":
-			if(Math.abs(oldx - x) > 1 | Math.abs(oldy - y) > 1) {
+			if (Math.abs(oldx - x) > 1 | Math.abs(oldy - y) > 1) {
 				return false;
 			} else {
 				return true;
 			}
-			
+
 		case "D":
-			//mix aus läufer und turm
-			if(oldx == x || oldy == y) {
+			// mix aus läufer und turm
+			if (oldx == x || oldy == y) {
 				if (x != oldx && y != oldy) {
 					return false;
 				} else {
@@ -230,6 +285,67 @@ public class GameFieldButtonHandler implements ButtonHandler {
 			} else {
 				return false;
 			}
+		case "B":
+
+			switch (field[oldx][oldy].getText().substring(1)) {
+			case "B":
+				if (Math.abs(x - oldx) == 1) {
+					if (!field[x][y].getText().equals("")) {
+						if (field[x][y].getText().substring(1).equals("W")) {
+							if (oldy < y && y - oldy <= 1) {
+								return true;
+							}
+						}
+					}
+				}
+
+				if (Math.abs(x - oldx) == 0) {
+					if (oldy == 1) {
+						if (oldy < y && y - oldy <= 2) {
+							if (field[x][y].getText().equals(""))
+								return true;
+						}
+						return false;
+					}
+					if (oldy < y && y - oldy <= 1) {
+						if (field[x][y].getText().equals(""))
+							return true;
+						return false;
+					}
+				}
+				break;
+
+			case "W":
+				if (Math.abs(x - oldx) == 1) {
+					if (!field[x][y].getText().equals("")) {
+						if (field[x][y].getText().substring(1).equals("B")) {
+							if (oldy > y && oldy - y <= 1) {
+								return true;
+							}
+						}
+					}
+				}
+
+				if (Math.abs(x - oldx) == 0) {
+					if (oldy == 6) {
+						if (oldy > y && oldy - y <= 2) {
+							if (field[x][y].getText().equals(""))
+								return true;
+						}
+						return false;
+					}
+					if (oldy > y && oldy - y <= 1) {
+						if (field[x][y].getText().equals(""))
+							return true;
+						return false;
+					}
+				}
+				break;
+
+			default:
+				break;
+			}
+			return false;
 
 		default:
 			return true;

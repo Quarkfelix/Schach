@@ -9,11 +9,12 @@ import infrastructure.ButtonHandler;
 import infrastructure.Scene;
 import libary.Button;
 import libary.TextArea;
+import libary.Textalign;
 import settings.GameFieldSettings;
 import settings.GeneralSettings;
 import settings.MainMenuSettings;
 
-public class GameField implements Scene{
+public class GameField implements Scene {
 	private Button[][] field = new Button[8][8];
 	private TextArea player1;
 	private TextArea player2;
@@ -25,14 +26,15 @@ public class GameField implements Scene{
 	int markedStoneX = 500;
 	int markedStoneY = 500;
 	public String activePlayer = "B";
-	
-	//settings
+
+	// settings
 	private Color backgroundColor;
 	private Color buttonColor;
 	private Color buttonBorderColor;
 	private Color UIbuttonColor;
-	
-//Constructor ------------------------------------------------------------------------------------------
+
+// ======================================== CONSTRUCTOR ========================================
+
 	public GameField() {
 		importSettings();
 		setupUI();
@@ -40,41 +42,61 @@ public class GameField implements Scene{
 		startingFormation();
 		buttonHandler = new GameFieldButtonHandler(this, field);
 	}
-	
-//methods ----------------------------------------------------------------------------------------------
+
+// ======================================== RUN-METHOD =========================================
+
+// ======================================== METHODS ============================================
+
 	private void importSettings() {
 		backgroundColor = GameFieldSettings.backgroundColor;
 		buttonColor = GameFieldSettings.buttonColor;
 		buttonBorderColor = GameFieldSettings.buttonBorderColor;
 		UIbuttonColor = GameFieldSettings.UIbuttonColor;
 	}
-	
+
 	private void setupUI() {
 		setupTextFields();
 	}
-	
+
 	private void setupTextFields() {
-		x = (int)((GeneralSettings.screenWidth-width)/2);
-		y = (int)((GeneralSettings.screenHeight-height)/2);
+		x = (int) ((GeneralSettings.screenWidth - width) / 2);
+		y = (int) ((GeneralSettings.screenHeight - height) / 2);
 		int width = 250;
 		int height = 90;
-		player1 = new TextArea((int) (x - width * 0.9), (int) (y + height * 1.1), width, height);
+		player1 = new TextArea((int) (x - width * 1.2), (int) (y + this.height * 0.02), width, height);
+		player2 = new TextArea((int) (x + this.width + width * 0.2), (int) (y + this.height * 0.02), width, height);
+
+		player1.setText("PLAYER1");
+		player1.setThiccness(3);
+		player1.setTextAlignment("zentriert");
+		player1.setTextAlignmentVertical("center");
+		player1.setBackgroundColor(new Color(5, 5, 5));
+		player1.setTextColor(Color.WHITE);
+		player1.setFramingColor(Color.RED);
+
+		player2.setText("PLAYER2");
+		player2.setThiccness(3);
+		player2.setTextAlignment("zentriert");
+		player2.setTextAlignmentVertical("center");
+		player2.setBackgroundColor(new Color(5, 5, 5));
+		player2.setTextColor(Color.WHITE);
+		player2.setFramingColor(new Color(31, 31, 31));
 	}
-	
+
 	public void setupField() {
-		//positions
-		x = (int)((GeneralSettings.screenWidth-width)/2);
-		y = (int)((GeneralSettings.screenHeight-height)/2);
+		// positions
+		x = (int) ((GeneralSettings.screenWidth - width) / 2);
+		y = (int) ((GeneralSettings.screenHeight - height) / 2);
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field.length; j++) {
-				field[j][i] = new Button(x, y, width/field.length, height/field.length);
-				x += width/field.length;
+				field[j][i] = new Button(x, y, width / field.length, height / field.length);
+				x += width / field.length;
 			}
-			x = (int)((GeneralSettings.screenWidth-width)/2);
-			y += height/field.length;
+			x = (int) ((GeneralSettings.screenWidth - width) / 2);
+			y += height / field.length;
 		}
-		
-		//design
+
+		// design
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field.length; j++) {
 				field[i][j].setColor(buttonColor);
@@ -92,9 +114,9 @@ public class GameField implements Scene{
 			}
 		}
 	}
-	
+
 	public void startingFormation() {
-		//TB -> Turm Black
+		// TB -> Turm Black
 		field[0][0].setText("TB");
 		field[1][0].setText("SB");
 		field[2][0].setText("LB");
@@ -111,7 +133,7 @@ public class GameField implements Scene{
 		field[5][1].setText("BB");
 		field[6][1].setText("BB");
 		field[7][1].setText("BB");
-		
+
 		field[0][7].setText("TW");
 		field[1][7].setText("SW");
 		field[2][7].setText("LW");
@@ -128,63 +150,64 @@ public class GameField implements Scene{
 		field[5][6].setText("BW");
 		field[6][6].setText("BW");
 		field[7][6].setText("BW");
-		}
-	
-//getter-setter ----------------------------------------------------------------------------------------
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public ButtonHandler getButtonHandler() {
-		return buttonHandler;
 	}
 	
-	public void setMoveStone(int oldX, int oldY, int newX, int newY) {		
-		field[newX][newY].setText(field[oldX][oldY].getText());
-		if(activePlayer.equals("B")) {
-			field[newX][newY].setTextColor(Color.BLACK);
+	public void switchSides() {
+		if (activePlayer.equals("B")) {
+			activePlayer = "W";
+			player2.setFramingColor(Color.RED);
+			player1.setFramingColor(new Color(31, 31, 31));
 		} else {
-			field[newX][newY].setTextColor(Color.WHITE);
+			activePlayer = "B";
+			player1.setFramingColor(Color.RED);
+			player2.setFramingColor(new Color(31, 31, 31));
 		}
-		field[oldX][oldY].setText("");
 	}
 	
 	public void markStone(int x, int y) {
 		markedStoneX = field[x][y].getX();
 		markedStoneY = field[x][y].getY();
 	}
+
+// ======================================== GET/SET METHODS ====================================
 	
+	@Override
+	public ButtonHandler getButtonHandler() {
+		return buttonHandler;
+	}
+
+	public void setMoveStone(int oldX, int oldY, int newX, int newY) {
+		field[newX][newY].setText(field[oldX][oldY].getText());
+		if (activePlayer.equals("B")) {
+			field[newX][newY].setTextColor(Color.BLACK);
+		} else {
+			field[newX][newY].setTextColor(Color.WHITE);
+		}
+		field[oldX][oldY].setText("");
+	}
+
 	public void removeMark() {
 		markedStoneX = 500;
 		markedStoneY = 500;
 	}
 	
-	public void switchSides() {
-		if(activePlayer.equals("B")) {
-			activePlayer = "W";
-		} else {
-			activePlayer = "B";
-		}
-	}
-
-//paint ------------------------------------------------------------------------------------------------	
+// ======================================== PAINT-METHODS ======================================
+	
 	@Override
 	public void paint(Graphics2D g) {
 		drawBackground(g);
 		drawButtons(g);
-		if(markedStoneX != 500) {
+		if (markedStoneX != 500) {
 			drawMarker(g);
 		}
-		//drawTextAreas(g);
+		drawTextAreas(g);
 	}
-	
+
 	private void drawBackground(Graphics2D g) {
 		g.setColor(backgroundColor);
 		g.fillRect(0, 0, GeneralSettings.screenWidth, GeneralSettings.screenHeight);
 	}
-	
+
 	private void drawButtons(Graphics2D g) {
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field.length; j++) {
@@ -192,14 +215,14 @@ public class GameField implements Scene{
 			}
 		}
 	}
-	
+
 	private void drawMarker(Graphics2D g) {
 		g.setColor(Color.RED);
-		g.drawOval(markedStoneX, markedStoneY, width/field.length, height/field.length);
+		g.drawOval(markedStoneX, markedStoneY, width / field.length, height / field.length);
 	}
-	
+
 	private void drawTextAreas(Graphics2D g) {
 		player1.paint(g);
+		player2.paint(g);
 	}
-	
 }

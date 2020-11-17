@@ -23,15 +23,20 @@ public class SettingsPage implements Scene{
 	private Color buttonColor;
 	private Color buttonBorderColor;
 	private Color buttonTextColor;
-
-//Constructor ------------------------------------------------------------------------------------------
+	
+// ======================================== CONSTRUCTOR ========================================
+	
 	public SettingsPage() {
 		importSettings();
 		addButtons();
 		setUpButtons();
 		buttonHandler = new SettingsButtonHandler(buttons);
 	}
-//methods ----------------------------------------------------------------------------------------------
+	
+// ======================================== RUN-METHOD =========================================
+	
+// ======================================== METHODS ============================================
+	
 	private void importSettings() {
 		backgroundColor = SettingsPageSettings.backgroundColor;
 		buttonColor = SettingsPageSettings.buttonColor;
@@ -51,19 +56,19 @@ public class SettingsPage implements Scene{
 		int y = (int) ((GeneralSettings.screenHeight-height)/2);
 		int x = (int) ((GeneralSettings.screenWidth-width)/2);
 		
-		//play
+		//switch monitor
 		buttons.get(0).setY(y/2);
 		buttons.get(0).setText("SWITCH MONITOR");
 		
-		//settings
+		//setting 2
 		buttons.get(1).setY(y);
 		buttons.get(1).setText("SETTING 2");
 		
-		//quit
+		//back
 		buttons.get(2).setY(y + y/2);
 		buttons.get(2).setText("BACK");
 		
-		
+		//general
 		for (Button button : buttons) {
 			button.setX(x);
 			button.setWidth(width);
@@ -74,18 +79,16 @@ public class SettingsPage implements Scene{
 			button.setColor(buttonColor);
 		}	
 	}
-//getter-setter ----------------------------------------------------------------------------------------
-	@Override
-	public String getName() {
-		return name;
-	}
+	
+// ======================================== GET/SET METHODS ====================================
 
 	@Override
 	public ButtonHandler getButtonHandler() {
 		return buttonHandler;
 	}
 	
-//paint ------------------------------------------------------------------------------------------------
+// ======================================== PAINT-METHODS ======================================
+	
 	@Override
 	public void paint(Graphics2D g) {
 		drawBackground(g);
@@ -100,5 +103,4 @@ public class SettingsPage implements Scene{
 	private void drawButtons(Graphics2D g) {
 		buttons.forEach((v) -> v.paint(g));
 	}
-
 }

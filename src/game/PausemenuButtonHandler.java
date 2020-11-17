@@ -1,4 +1,4 @@
-package mainmenu;
+package game;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -7,44 +7,46 @@ import infrastructure.ButtonHandler;
 import infrastructure.Main;
 import libary.Button;
 
-public class MainMenuButtonHandler implements ButtonHandler{
+public class PausemenuButtonHandler implements ButtonHandler {
 	private ArrayList<Button> buttons;
 
 // ======================================== CONSTRUCTOR ========================================
-	public MainMenuButtonHandler(ArrayList<Button> buttons) {
+	
+	public PausemenuButtonHandler(ArrayList<Button> buttons) {
 		this.buttons = buttons;
 	}
 	
 // ======================================== RUN-METHOD =========================================
 	
 // ======================================== METHODS ============================================
-	public void checkKeyInput(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case KeyEvent.VK_ESCAPE: {
-			System.exit(0);
+	
+	@Override
+	public void checkKeyInput(KeyEvent key) {
+		switch (key.getKeyCode()) {
+		case KeyEvent.VK_ESCAPE:
+			Main.sc.setSceneActive("gamefield");
+			break;
+
+		default:
 			break;
 		}
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + e);
-		}
 	}
-	
+
 	@Override
 	public void checkMouseInput(int x, int y) {
 		for (Button button : buttons) {
-			if(button.contains(x, y)) {
+			if (button.contains(x, y)) {
 				switch (button.getText()) {
-				case "PLAY": 
+				case "RESUME":
 					System.out.println(Main.sc.setSceneActive("gamefield"));
 					break;
-					
-				case "SETTINGS": 
+
+				case "SETTINGS":
 					System.out.println(Main.sc.setSceneActive("settingspage"));
 					break;
-					
-				case "QUIT": 
-					System.out.println("quit");
-					System.exit(0);
+
+				case "MENU":
+					Main.sc.setSceneActive("mainmenu");
 					break;
 				default:
 					throw new IllegalArgumentException("Unexpected value: " + button.getText());
@@ -54,5 +56,7 @@ public class MainMenuButtonHandler implements ButtonHandler{
 	}
 	
 // ======================================== GET/SET METHODS ====================================
+	
+// ======================================== PAINT-METHODS ======================================
 	
 }
