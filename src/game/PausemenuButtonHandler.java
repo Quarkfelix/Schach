@@ -38,14 +38,17 @@ public class PausemenuButtonHandler implements ButtonHandler {
 			if (button.contains(x, y)) {
 				switch (button.getText()) {
 				case "RESUME":
+					Main.mc.play("effects", 1, false, true);
 					System.out.println(Main.sc.setSceneActive("gamefield"));
 					break;
 
 				case "SETTINGS":
+					Main.mc.play("effects", 1, false, true);
 					System.out.println(Main.sc.setSceneActive("settingspage"));
 					break;
 
 				case "MENU":
+					Main.mc.play("effects", 1, false, true);
 					Main.sc.setSceneActive("mainmenu");
 					break;
 				default:

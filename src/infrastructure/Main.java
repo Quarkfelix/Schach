@@ -29,7 +29,7 @@ public class Main {
 		songs[6] = "starwarsLoFiClip7.wav";
 		songs[7] = "starwarsLoFiClip8.wav";
 		mc.newPlaylist("background", songs);
-		mc.play("background");
+		mc.play("background", true, false);
 	}
 	
 	private static void loadSoundEffects() {

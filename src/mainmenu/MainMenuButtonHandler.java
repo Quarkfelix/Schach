@@ -35,14 +35,17 @@ public class MainMenuButtonHandler implements ButtonHandler{
 			if(button.contains(x, y)) {
 				switch (button.getText()) {
 				case "PLAY": 
+					Main.mc.play("effects", 1, false, true);
 					System.out.println(Main.sc.setSceneActive("gamefield"));
 					break;
 					
-				case "SETTINGS": 
+				case "SETTINGS":
+					Main.mc.play("effects", 1, false, true);
 					System.out.println(Main.sc.setSceneActive("settingspage"));
 					break;
 					
 				case "QUIT": 
+					Main.mc.play("effects", 1, false, true);
 					System.out.println("quit");
 					System.exit(0);
 					break;

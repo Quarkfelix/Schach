@@ -38,14 +38,17 @@ public class SettingsButtonHandler implements ButtonHandler{
 			if(button.contains(x, y)) {
 				switch (button.getText()) {
 				case "SWITCH MONITOR": 
+					Main.mc.play("effects", 1, false, true);
 					System.out.println("change display variable in settings savefile");
 					break;
 					
-				case "MUTE": 
+				case "MUTE":
+					Main.mc.play("effects", 1, false, true);
 					Main.mc.mute();
 					break;
 					
-				case "BACK": 
+				case "BACK":
+					Main.mc.play("effects", 1, false, true);
 					Main.sc.setSceneActive(Main.sc.getlastScene());
 					break;
 				default:

@@ -38,6 +38,7 @@ public class GameFieldButtonHandler implements ButtonHandler {
 	public void checkMouseInput(int x, int y) {		
 		//check UI
 		if(skipTrackButton.contains(x, y)) {
+			Main.mc.play("effects", 1, false, true);
 			Main.mc.nextSong("background");
 			return;
 		}
