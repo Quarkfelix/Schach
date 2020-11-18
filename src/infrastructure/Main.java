@@ -33,10 +33,12 @@ public class Main {
 	}
 	
 	private static void loadSoundEffects() {
-		String[] songs = new String[3];
+		String[] songs = new String[5];
 		songs[0] = "attackSound.wav";
 		songs[1] = "enterSound.wav";
 		songs[2] = "moveSound.wav";
+		songs[3] = "select_stone.wav";
+		songs[4] = "select_stone2.wav";
 		mc.newPlaylist("effects", songs);
 	}
 }

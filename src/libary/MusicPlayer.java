@@ -169,13 +169,24 @@ public class MusicPlayer implements Runnable {
 
 	public void stopPlaying() {
 		this.on = false;
+		this.looping = false;
+		this.locked = true;
+		musicpointer = musicFiles.size()-1;
 		lengthclip = 0;
+	}
+	
+	public void resume() {
+		this.on = true;
 	}
 
 	public void nextSong() {
 		lengthclip = 0;
 	}
 
+	public boolean isOn() {
+		return this.on;
+	}
+	
 	public void setMusicpointer(int musicindex) {
 		this.musicpointer = musicindex;
 	}

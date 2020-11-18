@@ -53,12 +53,10 @@ public class MusicController implements Runnable {
 	
 	public void mute() {
 		for (Entry<String, MusicPlayer> e : musicPlayer.entrySet()) {
-			if (e.getValue().getVolume() != 0.0f) {
-				e.getValue().setVolume(0.0f);
-				System.out.println("muted" + e.getValue().getVolume());
+			if (e.getValue().isOn()) {
+				e.getValue().stopPlaying();
 			} else {
-				System.out.println("unmuted" + e.getValue().getVolume());
-				e.getValue().setVolume(1.0f);
+				e.getValue().stopPlaying();
 			}
 		}
 	}

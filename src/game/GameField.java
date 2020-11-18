@@ -2,8 +2,16 @@ package game;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import infrastructure.ButtonHandler;
 import infrastructure.Scene;
@@ -78,7 +86,7 @@ public class GameField implements Scene {
 	private void setupTextFields() {
 		x = (int) ((GeneralSettings.screenWidth - 1920) / 2);
 		y = (int) ((GeneralSettings.screenHeight - 1080) / 2);
-		
+
 		int width = 250;
 		int height = 90;
 		player1 = new TextArea((int) (x + 100), (int) (y + 40), width, height);
@@ -119,6 +127,7 @@ public class GameField implements Scene {
 			for (int j = 0; j < field.length; j++) {
 				field[i][j].setColor(buttonColor);
 				field[i][j].setBorderColor(buttonBorderColor);
+				field[i][j].setTextActive(false);
 			}
 		}
 		for (int i = 0; i < field.length; i++) {
@@ -168,6 +177,45 @@ public class GameField implements Scene {
 		field[5][6].setText("BW");
 		field[6][6].setText("BW");
 		field[7][6].setText("BW");
+		
+		try {
+			field[0][0].setImg(ImageIO.read(getClass().getResource("ZturmSchwarz.png")));
+			field[1][0].setImg(ImageIO.read(getClass().getResource("ZspringerSchwarz.png")));
+			field[2][0].setImg(ImageIO.read(getClass().getResource("ZlauferSchwarz.png")));
+			field[3][0].setImg(ImageIO.read(getClass().getResource("ZkoenigSchwarz.png")));
+			field[4][0].setImg(ImageIO.read(getClass().getResource("ZdameSchwarz.png")));
+			field[5][0].setImg(ImageIO.read(getClass().getResource("ZlauferSchwarz.png")));
+			field[6][0].setImg(ImageIO.read(getClass().getResource("ZspringerSchwarz.png")));
+			field[7][0].setImg(ImageIO.read(getClass().getResource("ZturmSchwarz.png")));
+			field[0][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
+			field[1][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
+			field[2][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
+			field[3][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
+			field[4][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
+			field[5][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
+			field[6][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
+			field[7][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
+			
+			field[0][7].setImg(ImageIO.read(getClass().getResource("ZturmWeiß.png")));
+			field[1][7].setImg(ImageIO.read(getClass().getResource("ZspringerWeiß.png")));
+			field[2][7].setImg(ImageIO.read(getClass().getResource("ZlauferWeiß.png")));
+			field[3][7].setImg(ImageIO.read(getClass().getResource("ZkoenigWeiß.png")));
+			field[4][7].setImg(ImageIO.read(getClass().getResource("ZdameWeiß.png")));
+			field[5][7].setImg(ImageIO.read(getClass().getResource("ZlauferWeiß.png")));
+			field[6][7].setImg(ImageIO.read(getClass().getResource("ZspringerWeiß.png")));
+			field[7][7].setImg(ImageIO.read(getClass().getResource("ZturmWeiß.png")));
+			field[0][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
+			field[1][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
+			field[2][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
+			field[3][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
+			field[4][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
+			field[5][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
+			field[6][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
+			field[7][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void switchSides() {
@@ -196,12 +244,14 @@ public class GameField implements Scene {
 
 	public void setMoveStone(int oldX, int oldY, int newX, int newY) {
 		field[newX][newY].setText(field[oldX][oldY].getText());
+		field[newX][newY].setImg(field[oldX][oldY].getImage());
 		if (activePlayer.equals("B")) {
 			field[newX][newY].setTextColor(Color.BLACK);
 		} else {
 			field[newX][newY].setTextColor(Color.WHITE);
 		}
 		field[oldX][oldY].setText("");
+		field[oldX][oldY].setImg(null);
 	}
 
 	public void removeMark() {

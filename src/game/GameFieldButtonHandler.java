@@ -51,6 +51,7 @@ public class GameFieldButtonHandler implements ButtonHandler {
 						// empty field
 						if (markedButton.x != 500) { // move
 							if (positionOK(i, j)) {
+								Main.mc.play("effects", 4, false, true);
 								gf.setMoveStone(markedButton.x, markedButton.y, i, j);
 								markedButton.setLocation(500, 0);
 								gf.removeMark();
@@ -58,10 +59,12 @@ public class GameFieldButtonHandler implements ButtonHandler {
 							}
 						}
 					} else if (field[i][j].getText().substring(1, 2).equals(gf.activePlayer)) { // select stone
+						Main.mc.play("effects", 3, false, true);
 						gf.markStone(i, j);
 						markedButton.setLocation(i, j);
 					} else if (markedButton.x != 500) { // move
 						if (positionOK(i, j)) {
+							Main.mc.play("effects", 4, false, true);
 							gf.setMoveStone(markedButton.x, markedButton.y, i, j);
 							markedButton.setLocation(500, 0);
 							gf.removeMark();
@@ -75,14 +78,23 @@ public class GameFieldButtonHandler implements ButtonHandler {
 	}
 
 	private boolean checkWinCondition() {
+		boolean blackKing = false;
+		boolean whiteKing = false;
+		
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field.length; j++) {
+				if(field[i][j].getText().equals("KB")) {
+					blackKing = true;
+				}
 				if(field[i][j].getText().equals("KW")) {
-					System.out.println("Weiß gewonnen");
-				} else if (field[i][j].getText().equals("KB")) {
-					System.out.println("schwarz gewonen");
+					whiteKing = true;
 				}
 			}
+		}
+		if(!blackKing && whiteKing) {
+			System.out.println("White won!");
+		} else if(!whiteKing && blackKing) {
+			System.out.println("Black won!");
 		}
 		return false;
 	}
