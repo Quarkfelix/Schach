@@ -71,16 +71,17 @@ public class GameField implements Scene {
 	private void setupButtons() {
 		x = (int) ((GeneralSettings.screenWidth - 1920) / 2);
 		y = (int) ((GeneralSettings.screenHeight - 1080) / 2);
-		int width = 250;
-		int height = 70;
+		int width = 150;
+		int height = 50;
 
-		skipTrackButton = new Button(x + 70, y + 300, width, height);
+		skipTrackButton = new Button(x + 140, y + 300, width, height);
 		skipTrackButton.setText("SKIP MUSIC");
 		skipTrackButton.setColor(UIbuttonColor);
 		skipTrackButton.setBorderColor(buttonBorderColor);
 		skipTrackButton.setTextColor(Color.BLACK);
 		skipTrackButton.setTextAlignment(Textalign.mittig);
-		skipTrackButton.setTextFontSize(35);
+		skipTrackButton.setCornerRadius(20);
+		skipTrackButton.setTextFontSize(23);
 	}
 
 	private void setupTextFields() {

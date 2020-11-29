@@ -1,6 +1,7 @@
 package infrastructure;
 
 import libary.MusicController;
+import settings.GeneralSettings;
 
 public class Main {
 	public static GUI gui;
@@ -29,6 +30,8 @@ public class Main {
 		songs[6] = "starwarsLoFiClip7.wav";
 		songs[7] = "starwarsLoFiClip8.wav";
 		mc.newPlaylist("background", songs);
+		mc.setVolume("background", GeneralSettings.musicVolume);
+		mc.setVolume("background", 80);
 		mc.play("background", true, false);
 	}
 	
@@ -40,5 +43,6 @@ public class Main {
 		songs[3] = "select_stone.wav";
 		songs[4] = "select_stone2.wav";
 		mc.newPlaylist("effects", songs);
+		mc.setVolume("effects", GeneralSettings.soundEffectsVolume);
 	}
 }
