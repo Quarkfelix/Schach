@@ -31,8 +31,8 @@ public class Main {
 		songs[7] = "starwarsLoFiClip8.wav";
 		mc.newPlaylist("background", songs);
 		mc.setVolume("background", GeneralSettings.musicVolume);
-		mc.setVolume("background", 80);
 		mc.play("background", true, false);
+		
 	}
 	
 	private static void loadSoundEffects() {

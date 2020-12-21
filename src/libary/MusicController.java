@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import settings.GeneralSettings;
-
 public class MusicController implements Runnable {
 	private HashMap<String, MusicPlayer> musicPlayer = new HashMap<String, MusicPlayer>();
 	private boolean muted = false;

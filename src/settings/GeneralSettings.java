@@ -8,6 +8,6 @@ public class GeneralSettings {
 	public static int screenWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[GeneralSettings.Monitor].getDisplayMode().getWidth();
 	public static int screenHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[GeneralSettings.Monitor].getDisplayMode().getHeight();
 	
-	public static int musicVolume = 80; //6-40
-	public static int soundEffectsVolume = 20;
+	public static int musicVolume = 38; //6-40
+	public static int soundEffectsVolume = 25;
 }
