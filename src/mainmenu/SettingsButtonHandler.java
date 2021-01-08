@@ -44,7 +44,7 @@ public class SettingsButtonHandler implements ButtonHandler{
 					
 				case "MUTE":
 					Main.mc.play("effects", 1, false, true);
-					Main.mc.mute();
+					Main.mc.mute("background");
 					break;
 					
 				case "BACK":

@@ -58,11 +58,11 @@ public class SettingsPage implements Scene{
 		
 		//switch monitor
 		buttons.get(0).setY(y/2);
-		buttons.get(0).setText("SWITCH MONITOR");
+		buttons.get(0).setText("SWITCH MONITOR(broken)");
 		
 		//mute
 		buttons.get(1).setY(y);
-		buttons.get(1).setText("MUTE");
+		buttons.get(1).setText("MUTE(broken)");
 		
 		//back
 		buttons.get(2).setY(y + y/2);

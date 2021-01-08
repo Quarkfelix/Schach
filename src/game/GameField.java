@@ -129,16 +129,12 @@ public class GameField implements Scene {
 				field[i][j].setColor(buttonColor);
 				field[i][j].setBorderColor(buttonBorderColor);
 				field[i][j].setTextActive(false);
-			}
-		}
-		for (int i = 0; i < field.length; i++) {
-			for (int j = 0; j <= 1; j++) {
-				field[i][j].setTextColor(Color.BLACK);
-			}
-		}
-		for (int i = 0; i < field.length; i++) {
-			for (int j = 6; j < field.length; j++) {
-				field[i][j].setTextColor(Color.WHITE);
+				try {
+					field[j][i].setImg(ImageIO.read(getClass().getResource("empty.png")));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -180,43 +176,53 @@ public class GameField implements Scene {
 		field[7][6].setText("BW");
 		
 		try {
-			field[0][0].setImg(ImageIO.read(getClass().getResource("ZturmSchwarz.png")));
-			field[1][0].setImg(ImageIO.read(getClass().getResource("ZspringerSchwarz.png")));
-			field[2][0].setImg(ImageIO.read(getClass().getResource("ZlauferSchwarz.png")));
-			field[3][0].setImg(ImageIO.read(getClass().getResource("ZkoenigSchwarz.png")));
-			field[4][0].setImg(ImageIO.read(getClass().getResource("ZdameSchwarz.png")));
-			field[5][0].setImg(ImageIO.read(getClass().getResource("ZlauferSchwarz.png")));
-			field[6][0].setImg(ImageIO.read(getClass().getResource("ZspringerSchwarz.png")));
-			field[7][0].setImg(ImageIO.read(getClass().getResource("ZturmSchwarz.png")));
-			field[0][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
-			field[1][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
-			field[2][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
-			field[3][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
-			field[4][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
-			field[5][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
-			field[6][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
-			field[7][1].setImg(ImageIO.read(getClass().getResource("ZbauerSchwarz.png")));
+			field[0][0].setImg(ImageIO.read(getClass().getResource("towerBlack.png")));
+			field[1][0].setImg(ImageIO.read(getClass().getResource("horseBlack.png")));
+			field[2][0].setImg(ImageIO.read(getClass().getResource("bishopBlack.png")));
+			field[3][0].setImg(ImageIO.read(getClass().getResource("kingBlack.png")));
+			field[4][0].setImg(ImageIO.read(getClass().getResource("queenBlack.png")));
+			field[5][0].setImg(ImageIO.read(getClass().getResource("bishopBlack.png")));
+			field[6][0].setImg(ImageIO.read(getClass().getResource("horseBlack.png")));
+			field[7][0].setImg(ImageIO.read(getClass().getResource("towerBlack.png")));
+			field[0][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
+			field[1][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
+			field[2][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
+			field[3][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
+			field[4][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
+			field[5][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
+			field[6][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
+			field[7][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
 			
-			field[0][7].setImg(ImageIO.read(getClass().getResource("ZturmWeiß.png")));
-			field[1][7].setImg(ImageIO.read(getClass().getResource("ZspringerWeiß.png")));
-			field[2][7].setImg(ImageIO.read(getClass().getResource("ZlauferWeiß.png")));
-			field[3][7].setImg(ImageIO.read(getClass().getResource("ZkoenigWeiß.png")));
-			field[4][7].setImg(ImageIO.read(getClass().getResource("ZdameWeiß.png")));
-			field[5][7].setImg(ImageIO.read(getClass().getResource("ZlauferWeiß.png")));
-			field[6][7].setImg(ImageIO.read(getClass().getResource("ZspringerWeiß.png")));
-			field[7][7].setImg(ImageIO.read(getClass().getResource("ZturmWeiß.png")));
-			field[0][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
-			field[1][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
-			field[2][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
-			field[3][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
-			field[4][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
-			field[5][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
-			field[6][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
-			field[7][6].setImg(ImageIO.read(getClass().getResource("ZbauerWeiß.png")));
+			field[0][7].setImg(ImageIO.read(getClass().getResource("towerWhite.png")));
+			field[1][7].setImg(ImageIO.read(getClass().getResource("horseWhite.png")));
+			field[2][7].setImg(ImageIO.read(getClass().getResource("bishopWhite.png")));
+			field[3][7].setImg(ImageIO.read(getClass().getResource("kingWhite.png")));
+			field[4][7].setImg(ImageIO.read(getClass().getResource("queenWhite.png")));
+			field[5][7].setImg(ImageIO.read(getClass().getResource("bishopWhite.png")));
+			field[6][7].setImg(ImageIO.read(getClass().getResource("horseWhite.png")));
+			field[7][7].setImg(ImageIO.read(getClass().getResource("towerWhite.png")));
+			field[0][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
+			field[1][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
+			field[2][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
+			field[3][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
+			field[4][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
+			field[5][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
+			field[6][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
+			field[7][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field.length; j++) {
+				field[i][j].setImageWidth((int)(field[i][j].getWidth()*0.7));
+				field[i][j].setImageX(50);
+				field[i][j].setImageY(50);
+			}
+		}
+		
+		
 	}
 
 	public void switchSides() {
@@ -246,13 +252,21 @@ public class GameField implements Scene {
 	public void setMoveStone(int oldX, int oldY, int newX, int newY) {
 		field[newX][newY].setText(field[oldX][oldY].getText());
 		field[newX][newY].setImg(field[oldX][oldY].getImage());
+		field[newX][newY].setImageWidth((int)(field[newX][newY].getWidth()*0.7));
+		field[newX][newY].setImageX(50);
+		field[newX][newY].setImageY(50);
 		if (activePlayer.equals("B")) {
 			field[newX][newY].setTextColor(Color.BLACK);
 		} else {
 			field[newX][newY].setTextColor(Color.WHITE);
 		}
 		field[oldX][oldY].setText("");
-		field[oldX][oldY].setImg(null);
+		try {
+			field[oldX][oldY].setImg(ImageIO.read(getClass().getResource("empty.png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void removeMark() {
