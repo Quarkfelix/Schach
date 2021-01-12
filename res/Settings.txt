@@ -1,0 +1,7 @@
+KEYBINDINGS
+console~c
+filler~v
+filler1~y
+END KEYBINDS
+
+COLOR

@@ -142,6 +142,22 @@ public class TextArea {
 	// ende textaenderungen
 
 	// textArea aenderungen
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
 	public void setOutlineActive(boolean state) {
 		drawOutline = state;
 	}
@@ -207,7 +223,8 @@ public class TextArea {
 			break;
 		case "zentriert":
 			for (int i = 0; i < text.size(); i++) {
-				g.drawString(text.get(i), (int) (x - fMetric.stringWidth(text.get(i)) / 2 + width / 2), (int) (verticalAlignmentInt + linedistance * (i)));
+				g.drawString(text.get(i), (int) (x - fMetric.stringWidth(text.get(i)) / 2 + width / 2),
+						(int) (verticalAlignmentInt + linedistance * (i)));
 			}
 //			g.drawString(text.toString(), (int) (x - textWidth / 2 + width / 2), verticalAlignmentInt);
 			break;

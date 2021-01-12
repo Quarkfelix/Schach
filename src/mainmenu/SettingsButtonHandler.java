@@ -36,20 +36,27 @@ public class SettingsButtonHandler implements ButtonHandler{
 	public void checkMouseInput(int x, int y) {
 		for (Button button : buttons) {
 			if(button.contains(x, y)) {
+				Main.mc.play("effects", 1, false, true);
+				
 				switch (button.getText()) {
 				case "SWITCH MONITOR": 
-					Main.mc.play("effects", 1, false, true);
 					System.out.println("change display variable in settings savefile");
 					break;
 					
-				case "MUTE":
-					Main.mc.play("effects", 1, false, true);
-					Main.mc.mute("background");
+				case "KEYBINDS":
+					Main.sc.setSceneActive("keybindings");
+					
 					break;
 					
 				case "BACK":
-					Main.mc.play("effects", 1, false, true);
-					Main.sc.setSceneActive(Main.sc.getlastScene());
+					ArrayList<String> scenehistory = Main.sc.getSceneHistory();
+					int i = scenehistory.size()-1;
+					for (; i >= 0; i--) {
+						if(scenehistory.get(i) == "mainmenu" || scenehistory.get(i) == "pausemenu") {
+							break;
+						}
+					}
+					Main.sc.setSceneActive(scenehistory.get(i));
 					break;
 				default:
 					throw new IllegalArgumentException("Unexpected value: " + button.getText());

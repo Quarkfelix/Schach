@@ -28,6 +28,7 @@ public class SceneHandler {
 		scenes.put("settingspage", new SettingsPage());
 		scenes.put("gamefield", new GameField());
 		scenes.put("pausemenu", new Pausemenu());
+		scenes.put("keybindings", new Keybindings());
 	}
 
 // ======================================== GET/SET METHODS ====================================
@@ -53,6 +54,10 @@ public class SceneHandler {
 
 	public String getlastScene() {
 		return sceneStack.get(sceneStack.size() - 1);
+	}
+	
+	public ArrayList<String> getSceneHistory() {
+		return sceneStack;
 	}
 
 // ======================================== PAINT-METHODS ======================================
