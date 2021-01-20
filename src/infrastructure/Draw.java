@@ -6,7 +6,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.net.URL;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Draw extends JPanel implements Runnable{
@@ -56,7 +59,6 @@ public class Draw extends JPanel implements Runnable{
 		g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
-       
 		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		g.setColor(Color.black);

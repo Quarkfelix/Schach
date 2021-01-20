@@ -27,7 +27,7 @@ public class Keybindings implements Scene {
 		setUpTextAreas();
 		setUpButtons();
 		importKeybinds();
-		buttonHandler = new KeybindingsButtonHandler(keyButtons, backButton);
+		buttonHandler = new KeybindingsButtonHandler(keyButtons, backButton, nameTextAreas);
 	}
 
 // ======================================== METHODS ============================================
@@ -97,25 +97,21 @@ public class Keybindings implements Scene {
 			settings = new File(getClass().getClassLoader().getResource("Settings.txt").getFile());
 			Scanner sc = new Scanner(settings);
 			String text = sc.nextLine();
-			boolean reading = true;
-			while (reading) {
-				if (text.equals("KEYBINDINGS")) {
-					text = sc.nextLine();
-					int i = 0;
-					while (!text.equals("END KEYBINDS")) {
-						System.out.println(text);
-						String[] arr = text.split("~");
-						nameTextAreas.get(i).setText(arr[0]);
-						if(arr.length == 2) {
-							keyButtons.get(i).setText(arr[1]);
-						}
-						i++;
-						text = sc.nextLine();
-					}		
-				}
-				reading = false;
+			while (!text.equals("KEYBINDINGS")) {
+				text = sc.nextLine();
 			}
-
+			text = sc.nextLine();
+			int i = 0;
+			while (!text.equals("END KEYBINDS")) {
+				System.out.println(text);
+				String[] arr = text.split("~");
+				nameTextAreas.get(i).setText(arr[0]);
+				if (arr.length == 2) {
+					keyButtons.get(i).setText(arr[1]);
+				}
+				i++;
+				text = sc.nextLine();
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -127,7 +123,6 @@ public class Keybindings implements Scene {
 	public ButtonHandler getButtonHandler() {
 		return buttonHandler;
 	}
-	
 
 // ======================================== PAINT-METHODS ======================================
 	@Override

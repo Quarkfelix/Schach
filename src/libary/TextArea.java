@@ -114,6 +114,10 @@ public class TextArea {
 	public void setText(int text) {
 		this.text.add(text + "");
 	}
+	
+	public String getText() {
+		return text.toString();
+	}
 
 	public void setTextFont(Font font) {
 		this.font = font;

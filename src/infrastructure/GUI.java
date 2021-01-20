@@ -2,8 +2,13 @@ package infrastructure;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import io.*;
 import settings.GeneralSettings;
