@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -37,6 +38,8 @@ public class Button {
 	private Color borderColor = Color.GREEN;
 	private BufferedImage img = null;
 	private int animLength = 100;
+	private boolean selected = false;
+	private Color selectionColor = Color.RED;
 
 	// text
 	private int fontSize = 40;
@@ -119,10 +122,18 @@ public class Button {
 	}
 
 //getter-setter-------------------------------------------------------------------------------------------------------------------------	
+	public void setSelected(boolean state) {
+		this.selected = state;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
 	public void setAnimLength(int animLengthInMiliseconds) {
 		this.animLength = animLengthInMiliseconds;
 	}
-	
+
 	public void setOval(boolean state) {
 		oval = state;
 	}
@@ -141,12 +152,12 @@ public class Button {
 
 	public void setX(int x) {
 		this.x = x;
-		imgX = (int) (x + width*imgXfactor - imgwidth/2);
+		imgX = (int) (x + width * imgXfactor - imgwidth / 2);
 	}
 
 	public void setY(int y) {
 		this.y = y;
-		imgY = (int) (y + height*imgYfactor - imgheight/2);
+		imgY = (int) (y + height * imgYfactor - imgheight / 2);
 	}
 
 	public int getX() {
@@ -180,19 +191,19 @@ public class Button {
 		setImageX(50);
 		setImageY(50);
 	}
-	
+
 	public BufferedImage getImage() {
 		return img;
 	}
-	
+
 	public void setImageX(double xInPercentToLeftButtonborder) {
-		imgXfactor = xInPercentToLeftButtonborder/100;
-		imgX = (int) (x + width*imgXfactor - imgwidth/2);
+		imgXfactor = xInPercentToLeftButtonborder / 100;
+		imgX = (int) (x + width * imgXfactor - imgwidth / 2);
 	}
 
 	public void setImageY(double yInPercentToButtontop) {
-		imgYfactor = yInPercentToButtontop/100;
-		imgY = (int) (y + height*imgYfactor - imgheight/2);
+		imgYfactor = yInPercentToButtontop / 100;
+		imgY = (int) (y + height * imgYfactor - imgheight / 2);
 	}
 
 	public void setImageWidth(int imgwidth) {
@@ -254,7 +265,7 @@ public class Button {
 		this.fontname = font.getName();
 		this.fontSize = font.getSize();
 	}
-	
+
 	public void setTextFont(String name) {
 		this.fontname = name;
 	}
@@ -317,12 +328,17 @@ public class Button {
 				// normal button
 				g.setColor(color);
 				g.fillRoundRect(x, y, width, height, radiusWidth, radiusHeight);
-				
+
 				if (border) {
 					g.setColor(borderColor);
 					g.drawRoundRect(x, y, width, height, radiusWidth, radiusHeight);
 				}
+				if (selected) {
+					g.setColor(selectionColor);
+					g.drawRoundRect(x, y, width, height, radiusWidth, radiusHeight);
+				}
 			}
+
 		}
 	}
 
@@ -371,7 +387,7 @@ class ButtonAnimation implements Runnable {
 		Thread t = new Thread(this);
 		t.start();
 	}
-	
+
 	public ButtonAnimation(Button b, int animLength) {
 		this.b = b;
 		this.animLength = animLength;

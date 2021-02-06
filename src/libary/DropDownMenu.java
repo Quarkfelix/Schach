@@ -112,11 +112,14 @@ public class DropDownMenu {
 			case KeyEvent.VK_SPACE:
 			case KeyEvent.VK_ENTER:
 				if (!entries.get(selectedCheckBox).isChecked()) {
+					if (oneCheckMode) {
+						for (Checkbox entrie : entries) {
+							entrie.setChecked(false);
+						}
+					}
 					entries.get(selectedCheckBox).setChecked(true);
-					System.out.println("unchecked");
 				} else {
 					entries.get(selectedCheckBox).setChecked(false);
-					System.out.println("checked");
 				}
 				break;
 			case KeyEvent.VK_ESCAPE:
@@ -240,7 +243,7 @@ public class DropDownMenu {
 	public void setUnfolded(boolean state) {
 		unfolded = state;
 	}
-	
+
 	// size
 	public void setRadius(int radius) {
 		this.radius = radius;
@@ -273,8 +276,8 @@ public class DropDownMenu {
 				radius, radius);
 	}
 
-	private void drawSelectionMarker(Graphics2D g) {		
-		int x,y,width,height;
+	private void drawSelectionMarker(Graphics2D g) {
+		int x, y, width, height;
 		x = entries.get(selectedCheckBox).getX();
 		y = entries.get(selectedCheckBox).getY();
 		width = entries.get(selectedCheckBox).getWidth();
@@ -282,7 +285,7 @@ public class DropDownMenu {
 		g.setColor(selectionColor);
 		g.drawLine(x, y, x + width, y);
 		g.drawLine(x, y + height, x + width, y + height);
-		
+
 	}
 
 }
