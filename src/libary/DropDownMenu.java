@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+//checkboxheight has to be done before entries are added
+
 public class DropDownMenu {
 	private int x;
 	private int y;
@@ -18,6 +20,7 @@ public class DropDownMenu {
 	private Button initialButton;
 	private ArrayList<Checkbox> entries = new ArrayList<>();
 	private int selectedCheckBox = 0;
+	private boolean selectionMarker = true;
 
 	// Settings
 	private Color backgroundColor = new Color(67, 160, 199);
@@ -161,7 +164,15 @@ public class DropDownMenu {
 		}
 		checkBoxHeight = height;
 	}
+	
+	public void setSelectionMarkerOn(boolean state) {
+		this.selectionMarker = state;
+	}
 
+	public boolean getSelectionMarkerOn() {
+		return this.selectionMarker;
+	}
+	
 	public void setCheckboxDesign(Design design) {
 		for (Checkbox entrie : entries) {
 			entrie.setDesign(design);
@@ -266,7 +277,9 @@ public class DropDownMenu {
 			for (Checkbox entrie : entries) {
 				entrie.paint(g);
 			}
-			drawSelectionMarker(g);
+			if(selectionMarker) {
+				drawSelectionMarker(g);
+			}
 		}
 	}
 

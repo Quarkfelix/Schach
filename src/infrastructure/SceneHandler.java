@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import game.Endscreen;
 import game.GameField;
 import game.Pausemenu;
 import mainmenu.*;
@@ -29,6 +30,7 @@ public class SceneHandler {
 		scenes.put("gamefield", new GameField());
 		scenes.put("pausemenu", new Pausemenu());
 		scenes.put("keybindings", new Keybindings());
+		scenes.put("endscreen", new Endscreen());
 	}
 
 // ======================================== GET/SET METHODS ====================================
@@ -38,6 +40,7 @@ public class SceneHandler {
 			if (s == sceneName) {
 				sceneStack.add(activeScene);
 				activeScene = sceneName;
+				scenes.get(s).onActivation();
 				return true;
 			}
 		}

@@ -53,6 +53,22 @@ public class Checkbox {
 	}
 
 //methods ----------------------------------------------------------------------------------------------
+	// checkt ob uebergebener punkt enthalten ist
+//	public boolean contains(int x, int y) {
+//		if (x >= (this.x + this.distanceCheckboxAndBorderLeft) && y >= (this.y + 0.5 * (height - checkboxdimension))
+//				&& x <= (this.x + this.distanceCheckboxAndBorderLeft + checkboxdimension)
+//				&& y <= (this.y + 0.5 * (height - checkboxdimension) + checkboxdimension)) {
+//			// new CheckboxAnimation(this);
+//			if (checked) {
+//				checked = false;
+//			} else {
+//				checked = true;
+//			}
+//			return true;
+//		}
+//		return false;
+//	}
+
 	public boolean contains(int x, int y) {
 		if (x >= this.x && y >= this.y && x <= (this.x + this.width) && y <= (this.y + this.height)) {
 			// new CheckboxAnimation(this);

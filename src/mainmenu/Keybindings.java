@@ -31,6 +31,12 @@ public class Keybindings implements Scene {
 	}
 
 // ======================================== METHODS ============================================
+	@Override
+	public void onActivation() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	private void setUpTextAreas() {
 		nameTextAreas.add(new TextArea(0, 0, 0, 0, "0"));
 		nameTextAreas.add(new TextArea(0, 0, 0, 0, "1"));

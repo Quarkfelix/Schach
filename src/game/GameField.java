@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
@@ -42,6 +43,14 @@ public class GameField implements Scene {
 	private Color buttonBorderColor;
 	private Color UIbuttonColor;
 
+	// stats
+	int moveCountW = 0;
+	int moveCountB = 0;
+	long time0 = 0;
+	long timeWhite = 0;
+	long timeBlack = 0;
+	String winner = "no";
+
 // ======================================== CONSTRUCTOR ========================================
 
 	public GameField() {
@@ -55,6 +64,10 @@ public class GameField implements Scene {
 // ======================================== RUN-METHOD =========================================
 
 // ======================================== METHODS ============================================
+	@Override
+	public void onActivation() {
+		this.time0 = System.nanoTime();
+	}
 
 	private void importSettings() {
 		backgroundColor = GameFieldSettings.backgroundColor;
@@ -174,7 +187,7 @@ public class GameField implements Scene {
 		field[5][6].setText("BW");
 		field[6][6].setText("BW");
 		field[7][6].setText("BW");
-		
+
 		try {
 			field[0][0].setImg(ImageIO.read(getClass().getResource("towerBlack.png")));
 			field[1][0].setImg(ImageIO.read(getClass().getResource("horseBlack.png")));
@@ -192,7 +205,7 @@ public class GameField implements Scene {
 			field[5][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
 			field[6][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
 			field[7][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
-			
+
 			field[0][7].setImg(ImageIO.read(getClass().getResource("towerWhite.png")));
 			field[1][7].setImg(ImageIO.read(getClass().getResource("horseWhite.png")));
 			field[2][7].setImg(ImageIO.read(getClass().getResource("bishopWhite.png")));
@@ -213,33 +226,59 @@ public class GameField implements Scene {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field.length; j++) {
-				field[i][j].setImageWidth((int)(field[i][j].getWidth()*0.7));
+				field[i][j].setImageSize((int) (field[i][j].getWidth() * 0.7), (int) (field[i][j].getHeight()));
 				field[i][j].setImageX(50);
 				field[i][j].setImageY(50);
 			}
 		}
-		
-		
 	}
 
 	public void switchSides() {
 		if (activePlayer.equals("B")) {
+			this.moveCountB++;
 			activePlayer = "W";
 			player2.setFramingColor(new Color(158, 0, 0));
 			player1.setFramingColor(new Color(15, 15, 15));
+			this.timeBlack = timeBlack+(System.nanoTime()-time0);
+			this.time0 = System.nanoTime();
 		} else {
+			this.moveCountW++;
 			activePlayer = "B";
 			player1.setFramingColor(new Color(158, 0, 0));
 			player2.setFramingColor(new Color(15, 15, 15));
+			this.timeWhite = timeWhite+(System.nanoTime()-time0);
+			this.time0 = System.nanoTime();
 		}
 	}
 
 	public void markStone(int x, int y) {
 		markedStoneX = field[x][y].getX();
 		markedStoneY = field[x][y].getY();
+	}
+
+	public void reset() {
+		this.activePlayer = "B";
+		this.moveCountW = 0;
+		this.moveCountB = 0;
+		this.time0 = 0;
+		this.timeWhite = 0;
+		this.timeBlack = 0;
+		this.winner = "no";
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field.length; j++) {
+				try {
+					field[i][j].setImg(ImageIO.read(getClass().getResource("empty.png")));
+					field[i][j].setText("");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		startingFormation();
 	}
 
 // ======================================== GET/SET METHODS ====================================
@@ -252,7 +291,8 @@ public class GameField implements Scene {
 	public void setMoveStone(int oldX, int oldY, int newX, int newY) {
 		field[newX][newY].setText(field[oldX][oldY].getText());
 		field[newX][newY].setImg(field[oldX][oldY].getImage());
-		field[newX][newY].setImageWidth((int)(field[newX][newY].getWidth()*0.7));
+		field[newX][newY].setImageSize((int) (field[newX][newY].getWidth() * 0.7),
+				(int) (field[newX][newY].getHeight()));
 		field[newX][newY].setImageX(50);
 		field[newX][newY].setImageY(50);
 		if (activePlayer.equals("B")) {
@@ -274,6 +314,46 @@ public class GameField implements Scene {
 		markedStoneY = 500;
 	}
 
+	public int getMoveCount(String color) {
+		if (color.equals("W")) {
+			return this.moveCountW;
+		} else if (color.equals("B")) {
+			return this.moveCountB;
+		}
+		return 0;
+	}
+	
+	//first white and than black
+	public Point getWhiteAndBlackStones() {
+		int bcount = 0;
+		int wcount = 0;
+		for (Button[] buttons : field) {
+			for (Button button : buttons) {
+				String key = button.getText();
+				if(key.contains("B")) {
+					if(key.substring(1).equals("B")) {
+						bcount++;
+					}
+				}
+				if(key.contains("W")) {
+					wcount++;
+				}
+			}
+		}
+		return new Point(wcount, bcount);
+	}
+	
+	//first white than black
+	public Double[] getTotalMoveTime() {
+		Double[] times = new Double[2];
+		times[0] = ((int)((timeWhite/1000000000.0)*100))/100.0;
+		times[1] = ((int)((timeBlack/1000000000.0)*100))/100.0;
+		return times; 
+	}
+	
+	public String getWinner() {
+		return this.winner;
+	}
 // ======================================== PAINT-METHODS ======================================
 
 	@Override
@@ -313,4 +393,5 @@ public class GameField implements Scene {
 		player1.paint(g);
 		player2.paint(g);
 	}
+
 }

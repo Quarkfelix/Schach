@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -28,22 +29,21 @@ public class GameFieldButtonHandler implements ButtonHandler {
 		case KeyEvent.VK_ESCAPE:
 			Main.sc.setSceneActive("pausemenu");
 			break;
-
 		default:
 			break;
 		}
 	}
 
 	@Override
-	public void checkMouseInput(int x, int y) {		
-		//check UI
-		if(skipTrackButton.contains(x, y)) {
+	public void checkMouseInput(int x, int y) {
+		// check UI
+		if (skipTrackButton.contains(x, y)) {
 			Main.mc.play("effects", 1, false, true);
 			Main.mc.nextSong("background");
 			return;
 		}
-		
-		//check schachfeld		
+
+		// check schachfeld
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field.length; j++) {
 				if (field[i][j].contains(x, y)) {
@@ -80,26 +80,34 @@ public class GameFieldButtonHandler implements ButtonHandler {
 	private boolean checkWinCondition() {
 		boolean blackKing = false;
 		boolean whiteKing = false;
-		
+
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field.length; j++) {
-				if(field[i][j].getText().equals("KB")) {
+				if (field[i][j].getText().equals("KB")) {
 					blackKing = true;
 				}
-				if(field[i][j].getText().equals("KW")) {
+				if (field[i][j].getText().equals("KW")) {
 					whiteKing = true;
 				}
 			}
 		}
-		if(!blackKing && whiteKing) {
-			System.out.println("White won!");
-		} else if(!whiteKing && blackKing) {
-			System.out.println("Black won!");
+		if (!blackKing && whiteKing) {
+			gf.moveCountB++;
+			gf.timeBlack = gf.timeBlack + (System.nanoTime() - gf.time0);
+			gf.time0 = System.nanoTime();
+			gf.winner = "white";
+			Main.sc.setSceneActive("endscreen");
+		} else if (!whiteKing && blackKing) {
+			gf.moveCountW++;
+			gf.timeWhite = gf.timeWhite + (System.nanoTime() - gf.time0);
+			gf.time0 = System.nanoTime();
+			gf.winner = "black";
+			Main.sc.setSceneActive("endscreen");
 		}
 		return false;
 	}
-	
-	//ist die logik hinter dem game. 
+
+	// ist die logik hinter dem game.
 	private boolean positionOK(int x, int y) {
 		if (field[x][y].getText().equals("")) { // leeres feld
 			// nur steinspezifische sachen prüfen

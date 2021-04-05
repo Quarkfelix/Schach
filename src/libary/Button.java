@@ -1,6 +1,7 @@
 package libary;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -121,6 +122,33 @@ public class Button {
 		return false;
 	}
 
+	public static Dimension getScaledDimension(Dimension imgSize, Dimension boundary) {
+		int original_width = imgSize.width;
+		int original_height = imgSize.height;
+		int bound_width = boundary.width;
+		int bound_height = boundary.height;
+		int new_width = original_width;
+		int new_height = original_height;
+
+		// first check if we need to scale width
+		if (original_width > bound_width) {
+			// scale width to fit
+			new_width = bound_width;
+			// scale height to maintain aspect ratio
+			new_height = (new_width * original_height) / original_width;
+		}
+
+		// then check if we need to scale even with the new height
+		if (new_height > bound_height) {
+			// scale height to fit instead
+			new_height = bound_height;
+			// scale width to maintain aspect ratio
+			new_width = (new_height * original_width) / original_height;
+		}
+
+		return new Dimension(new_width, new_height);
+	}
+	
 //getter-setter-------------------------------------------------------------------------------------------------------------------------	
 	public void setSelected(boolean state) {
 		this.selected = state;
@@ -187,7 +215,7 @@ public class Button {
 	// img
 	public void setImg(BufferedImage img) {
 		this.img = img;
-		setImageWidth(width);
+		setImageSize(this.width, this.height);
 		setImageX(50);
 		setImageY(50);
 	}
@@ -203,22 +231,15 @@ public class Button {
 
 	public void setImageY(double yInPercentToButtontop) {
 		imgYfactor = yInPercentToButtontop / 100;
-		imgY = (int) (y + height * imgYfactor - imgheight / 2);
+		imgY = (int) (y + height * imgYfactor - imgheight/2);
 	}
 
-	public void setImageWidth(int imgwidth) {
+	//maximum size
+	public void setImageSize(int width, int height) {
 		if (img != null) {
-			this.imgwidth = imgwidth;
-			double resizingfactor = (double) (imgwidth) / img.getWidth();
-			this.imgheight = (int) (img.getHeight() * resizingfactor);
-		}
-	}
-
-	public void setImageHeight(int imgheight) {
-		if (img != null) {
-			this.imgheight = imgheight;
-			double resizingfactor = (double) (imgheight) / img.getHeight();
-			imgwidth = (int) (img.getWidth() * resizingfactor);
+			Dimension d = this.getScaledDimension(new Dimension(img.getWidth(),img.getHeight()), new Dimension(width, height));
+			this.imgwidth = (int)d.getWidth();
+			this.imgheight = (int)d.getHeight();
 		}
 	}
 
@@ -228,14 +249,6 @@ public class Button {
 
 	public void setTrueImageHeight(int imgheight) {
 		this.imgheight = imgheight;
-	}
-
-	/* percent is measured in the width of the button */
-	public void setImageSize(double sizeInPercentToButton) {
-		double size = sizeInPercentToButton / 100;
-		this.imgwidth = (int) (width * size);
-		double resizingfactor = (double) (imgwidth) / img.getWidth();
-		this.imgheight = (int) (img.getHeight() * resizingfactor);
 	}
 
 	// ButtonColor
@@ -343,7 +356,7 @@ public class Button {
 	}
 
 	private void drawImage(Graphics2D g) {
-		g.drawImage(img, imgX, imgY, imgwidth, imgheight, null);
+		g.drawImage(img, imgX, imgY, this.imgwidth, this.imgheight, null);
 	}
 
 	private void drawText(Graphics2D g) {

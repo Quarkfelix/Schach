@@ -34,6 +34,11 @@ public class Pausemenu implements Scene {
 // ======================================== RUN-METHOD =========================================	
 	
 // ======================================== METHODS ============================================
+	@Override
+	public void onActivation() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	private void importSettings() {
 		backgroundColor = PausemenuSettings.backgroundColor;
