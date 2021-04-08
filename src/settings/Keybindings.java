@@ -1,19 +1,23 @@
-package mainmenu;
+package settings;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
 
 import infrastructure.ButtonHandler;
 import infrastructure.Scene;
 import libary.Button;
 import libary.TextArea;
-import settings.GeneralSettings;
-import settings.MainMenuSettings;
-import settings.SettingsPageSettings;
+import settingsClasses.GeneralSettings;
+import settingsClasses.KeybindingSettings;
+import settingsClasses.MainMenuSettings;
+import settingsClasses.SettingsPageSettings;
 
 public class Keybindings implements Scene {
 	private ArrayList<Button> keyButtons = new ArrayList<>();
@@ -56,7 +60,7 @@ public class Keybindings implements Scene {
 			// cosmetic
 			textArea.setBackgroundActive(false);
 			textArea.setOutlineActive(false);
-			textArea.setTextColor(SettingsPageSettings.buttonColor);
+			textArea.setTextColor(KeybindingSettings.buttonColor);
 		}
 	}
 
@@ -67,13 +71,13 @@ public class Keybindings implements Scene {
 		keyButtons.add(new Button(0, 0, 0, 0));
 		backButton = new Button(0, 0, 0, 0);
 
-		int buttonWidth = 110;
-		int buttonHeight = 40;
+		int buttonWidth = 200;
+		int buttonHeight = 70;
 		int width = GeneralSettings.screenWidth;
 		int height = 200;
-		Color buttonColor = SettingsPageSettings.buttonColor;
-		Color buttonBorderColor = SettingsPageSettings.buttonBorderColor;
-		Color buttonTextColor = SettingsPageSettings.buttonTextColor;
+		Color buttonColor = KeybindingSettings.buttonColor;
+		Color buttonBorderColor = KeybindingSettings.buttonBorderColor;
+		Color buttonTextColor = KeybindingSettings.buttonTextColor;
 
 		// Assign buttons
 		for (Button b : keyButtons) {
@@ -89,13 +93,21 @@ public class Keybindings implements Scene {
 		}
 		backButton.setTextFontSize(20);
 		backButton.setText("BACK");
+		backButton.setTextActive(false);
+		backButton.setBorderActive(false);
 		backButton.setWidth(buttonWidth);
 		backButton.setHeight(buttonHeight);
-		backButton.setX(width / 2);
+		backButton.setX(width/2 - buttonWidth/2);
 		backButton.setY(GeneralSettings.screenHeight - buttonHeight - 20);
 		backButton.setTextColor(buttonTextColor);
 		backButton.setBorderColor(buttonBorderColor);
-		backButton.setColor(buttonColor);
+		backButton.setColor(new Color(0,0,0,0));
+		try {
+			backButton.setImg(ImageIO.read(getClass().getClassLoader().getResource("Back.png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void importKeybinds() {

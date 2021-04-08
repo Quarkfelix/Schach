@@ -2,15 +2,19 @@ package game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import infrastructure.ButtonHandler;
 import infrastructure.Main;
 import infrastructure.Scene;
+import infrastructure.Scenes;
 import libary.Button;
-import settings.GeneralSettings;
-import settings.MainMenuSettings;
-import settings.PausemenuSettings;
+import settingsClasses.GeneralSettings;
+import settingsClasses.MainMenuSettings;
+import settingsClasses.PausemenuSettings;
 
 public class Pausemenu implements Scene {
 	private PausemenuButtonHandler buttonHandler;
@@ -76,10 +80,21 @@ public class Pausemenu implements Scene {
 			button.setX(x);
 			button.setWidth(width);
 			button.setHeight(height);
+			button.setBorderActive(false);
+			button.setTextActive(false);
 
 			button.setTextColor(buttonTextColor);
 			button.setBorderColor(buttonBorderColor);
 			button.setColor(buttonColor);
+		}
+		
+		try {
+			buttons.get(0).setImg(ImageIO.read(getClass().getClassLoader().getResource("Resume.png")));
+			buttons.get(1).setImg(ImageIO.read(getClass().getClassLoader().getResource("Settings.png")));
+			buttons.get(2).setImg(ImageIO.read(getClass().getClassLoader().getResource("Menu.png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -94,7 +109,7 @@ public class Pausemenu implements Scene {
 	
 	@Override
 	public void paint(Graphics2D g) {
-		Main.sc.getScene("gamefield").paint(g);
+		Main.sc.getScene(Scenes.gamefield).paint(g);
 		drawBackground(g);
 		drawButtons(g);
 	}

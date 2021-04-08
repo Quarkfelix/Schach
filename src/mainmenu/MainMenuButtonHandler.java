@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import infrastructure.ButtonHandler;
 import infrastructure.Main;
+import infrastructure.Scenes;
 import libary.Button;
 
 public class MainMenuButtonHandler implements ButtonHandler{
@@ -36,12 +37,12 @@ public class MainMenuButtonHandler implements ButtonHandler{
 				switch (button.getText()) {
 				case "PLAY": 
 					Main.mc.play("effects", 1, false, true);
-					System.out.println(Main.sc.setSceneActive("gamefield"));
+					System.out.println(Main.sc.setSceneActive(Scenes.gamefield));
 					break;
 					
 				case "SETTINGS":
 					Main.mc.play("effects", 1, false, true);
-					System.out.println(Main.sc.setSceneActive("settingspage"));
+					System.out.println(Main.sc.setSceneActive(Scenes.settingspage));
 					break;
 					
 				case "QUIT": 

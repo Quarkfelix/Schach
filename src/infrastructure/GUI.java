@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import io.*;
-import settings.GeneralSettings;
+import settingsClasses.GeneralSettings;
 
 public class GUI {
 	public JFrame jf;

@@ -19,9 +19,9 @@ import infrastructure.Scene;
 import libary.Button;
 import libary.TextArea;
 import libary.Textalign;
-import settings.GameFieldSettings;
-import settings.GeneralSettings;
-import settings.MainMenuSettings;
+import settingsClasses.GameFieldSettings;
+import settingsClasses.GeneralSettings;
+import settingsClasses.MainMenuSettings;
 
 public class GameField implements Scene {
 	private Button[][] field = new Button[8][8];
@@ -137,18 +137,19 @@ public class GameField implements Scene {
 		}
 
 		// design
-		for (int i = 0; i < field.length; i++) {
-			for (int j = 0; j < field.length; j++) {
-				field[i][j].setColor(buttonColor);
-				field[i][j].setBorderColor(buttonBorderColor);
-				field[i][j].setTextActive(false);
-				try {
-					field[j][i].setImg(ImageIO.read(getClass().getResource("empty.png")));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		try {
+			BufferedImage img = ImageIO.read(getClass().getClassLoader().getResource("empty.png"));
+			for (int i = 0; i < field.length; i++) {
+				for (int j = 0; j < field.length; j++) {
+					field[i][j].setColor(buttonColor);
+					field[i][j].setBorderColor(buttonBorderColor);
+					field[i][j].setTextActive(false);
+					field[j][i].setImg(img);
 				}
 			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -189,39 +190,41 @@ public class GameField implements Scene {
 		field[7][6].setText("BW");
 
 		try {
-			field[0][0].setImg(ImageIO.read(getClass().getResource("towerBlack.png")));
-			field[1][0].setImg(ImageIO.read(getClass().getResource("horseBlack.png")));
-			field[2][0].setImg(ImageIO.read(getClass().getResource("bishopBlack.png")));
-			field[3][0].setImg(ImageIO.read(getClass().getResource("kingBlack.png")));
-			field[4][0].setImg(ImageIO.read(getClass().getResource("queenBlack.png")));
-			field[5][0].setImg(ImageIO.read(getClass().getResource("bishopBlack.png")));
-			field[6][0].setImg(ImageIO.read(getClass().getResource("horseBlack.png")));
-			field[7][0].setImg(ImageIO.read(getClass().getResource("towerBlack.png")));
-			field[0][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
-			field[1][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
-			field[2][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
-			field[3][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
-			field[4][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
-			field[5][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
-			field[6][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
-			field[7][1].setImg(ImageIO.read(getClass().getResource("pawnBlack.png")));
+			BufferedImage imgPawn = ImageIO.read(getClass().getClassLoader().getResource("pawnBlack.png"));
+			field[0][0].setImg(ImageIO.read(getClass().getClassLoader().getResource("towerBlack.png")));
+			field[1][0].setImg(ImageIO.read(getClass().getClassLoader().getResource("horseBlack.png")));
+			field[2][0].setImg(ImageIO.read(getClass().getClassLoader().getResource("bishopBlack.png")));
+			field[3][0].setImg(ImageIO.read(getClass().getClassLoader().getResource("kingBlack.png")));
+			field[4][0].setImg(ImageIO.read(getClass().getClassLoader().getResource("queenBlack.png")));
+			field[5][0].setImg(ImageIO.read(getClass().getClassLoader().getResource("bishopBlack.png")));
+			field[6][0].setImg(ImageIO.read(getClass().getClassLoader().getResource("horseBlack.png")));
+			field[7][0].setImg(ImageIO.read(getClass().getClassLoader().getResource("towerBlack.png")));
+			field[0][1].setImg(imgPawn);
+			field[1][1].setImg(imgPawn);
+			field[2][1].setImg(imgPawn);
+			field[3][1].setImg(imgPawn);
+			field[4][1].setImg(imgPawn);
+			field[5][1].setImg(imgPawn);
+			field[6][1].setImg(imgPawn);
+			field[7][1].setImg(imgPawn);
 
-			field[0][7].setImg(ImageIO.read(getClass().getResource("towerWhite.png")));
-			field[1][7].setImg(ImageIO.read(getClass().getResource("horseWhite.png")));
-			field[2][7].setImg(ImageIO.read(getClass().getResource("bishopWhite.png")));
-			field[3][7].setImg(ImageIO.read(getClass().getResource("kingWhite.png")));
-			field[4][7].setImg(ImageIO.read(getClass().getResource("queenWhite.png")));
-			field[5][7].setImg(ImageIO.read(getClass().getResource("bishopWhite.png")));
-			field[6][7].setImg(ImageIO.read(getClass().getResource("horseWhite.png")));
-			field[7][7].setImg(ImageIO.read(getClass().getResource("towerWhite.png")));
-			field[0][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
-			field[1][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
-			field[2][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
-			field[3][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
-			field[4][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
-			field[5][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
-			field[6][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
-			field[7][6].setImg(ImageIO.read(getClass().getResource("pawnWhite.png")));
+			imgPawn = ImageIO.read(getClass().getClassLoader().getResource("pawnWhite.png"));
+			field[0][7].setImg(ImageIO.read(getClass().getClassLoader().getResource("towerWhite.png")));
+			field[1][7].setImg(ImageIO.read(getClass().getClassLoader().getResource("horseWhite.png")));
+			field[2][7].setImg(ImageIO.read(getClass().getClassLoader().getResource("bishopWhite.png")));
+			field[3][7].setImg(ImageIO.read(getClass().getClassLoader().getResource("kingWhite.png")));
+			field[4][7].setImg(ImageIO.read(getClass().getClassLoader().getResource("queenWhite.png")));
+			field[5][7].setImg(ImageIO.read(getClass().getClassLoader().getResource("bishopWhite.png")));
+			field[6][7].setImg(ImageIO.read(getClass().getClassLoader().getResource("horseWhite.png")));
+			field[7][7].setImg(ImageIO.read(getClass().getClassLoader().getResource("towerWhite.png")));
+			field[0][6].setImg(imgPawn);
+			field[1][6].setImg(imgPawn);
+			field[2][6].setImg(imgPawn);
+			field[3][6].setImg(imgPawn);
+			field[4][6].setImg(imgPawn);
+			field[5][6].setImg(imgPawn);
+			field[6][6].setImg(imgPawn);
+			field[7][6].setImg(imgPawn);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -242,14 +245,14 @@ public class GameField implements Scene {
 			activePlayer = "W";
 			player2.setFramingColor(new Color(158, 0, 0));
 			player1.setFramingColor(new Color(15, 15, 15));
-			this.timeBlack = timeBlack+(System.nanoTime()-time0);
+			this.timeBlack = timeBlack + (System.nanoTime() - time0);
 			this.time0 = System.nanoTime();
 		} else {
 			this.moveCountW++;
 			activePlayer = "B";
 			player1.setFramingColor(new Color(158, 0, 0));
 			player2.setFramingColor(new Color(15, 15, 15));
-			this.timeWhite = timeWhite+(System.nanoTime()-time0);
+			this.timeWhite = timeWhite + (System.nanoTime() - time0);
 			this.time0 = System.nanoTime();
 		}
 	}
@@ -270,7 +273,7 @@ public class GameField implements Scene {
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field.length; j++) {
 				try {
-					field[i][j].setImg(ImageIO.read(getClass().getResource("empty.png")));
+					field[i][j].setImg(ImageIO.read(getClass().getClassLoader().getResource("empty.png")));
 					field[i][j].setText("");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -302,7 +305,7 @@ public class GameField implements Scene {
 		}
 		field[oldX][oldY].setText("");
 		try {
-			field[oldX][oldY].setImg(ImageIO.read(getClass().getResource("empty.png")));
+			field[oldX][oldY].setImg(ImageIO.read(getClass().getClassLoader().getResource("empty.png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -322,35 +325,35 @@ public class GameField implements Scene {
 		}
 		return 0;
 	}
-	
-	//first white and than black
+
+	// first white and than black
 	public Point getWhiteAndBlackStones() {
 		int bcount = 0;
 		int wcount = 0;
 		for (Button[] buttons : field) {
 			for (Button button : buttons) {
 				String key = button.getText();
-				if(key.contains("B")) {
-					if(key.substring(1).equals("B")) {
+				if (key.contains("B")) {
+					if (key.substring(1).equals("B")) {
 						bcount++;
 					}
 				}
-				if(key.contains("W")) {
+				if (key.contains("W")) {
 					wcount++;
 				}
 			}
 		}
 		return new Point(wcount, bcount);
 	}
-	
-	//first white than black
+
+	// first white than black
 	public Double[] getTotalMoveTime() {
 		Double[] times = new Double[2];
-		times[0] = ((int)((timeWhite/1000000000.0)*100))/100.0;
-		times[1] = ((int)((timeBlack/1000000000.0)*100))/100.0;
-		return times; 
+		times[0] = ((int) ((timeWhite / 1000000000.0) * 100)) / 100.0;
+		times[1] = ((int) ((timeBlack / 1000000000.0) * 100)) / 100.0;
+		return times;
 	}
-	
+
 	public String getWinner() {
 		return this.winner;
 	}

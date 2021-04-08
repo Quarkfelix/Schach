@@ -1,4 +1,4 @@
-package mainmenu;
+package settings;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import infrastructure.ButtonHandler;
 import infrastructure.Main;
+import infrastructure.Scenes;
 import libary.*;
 
 public class KeybindingsButtonHandler implements ButtonHandler{
@@ -38,7 +39,7 @@ public class KeybindingsButtonHandler implements ButtonHandler{
 	@Override
 	public void checkMouseInput(int x, int y) {
 		if(backButton.contains(x, y)) {
-			Main.sc.setSceneActive("settingspage");
+			Main.sc.setSceneActive(Scenes.settingspage);
 		} else {
 			for (int i = 0; i < buttons.size(); i++) {
 				if(buttons.get(i).contains(x, y)) {
@@ -73,10 +74,10 @@ public class KeybindingsButtonHandler implements ButtonHandler{
 //					
 //				}
 //				
-////				nameTextAreas.get(i).setText(arr[0]);
-////				if(arr.length == 2) {
-////					keyButtons.get(i).setText(arr[1]);
-////				}
+//				nameTextAreas.get(i).setText(arr[0]);
+//				if(arr.length == 2) {
+//					keyButtons.get(i).setText(arr[1]);
+//				}
 //				i++;
 //				text = sc.nextLine();
 //			}

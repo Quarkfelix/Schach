@@ -8,11 +8,12 @@ import game.Endscreen;
 import game.GameField;
 import game.Pausemenu;
 import mainmenu.*;
+import settings.Keybindings;
 
 public class SceneHandler {
-	private HashMap<String, Scene> scenes = new HashMap<>();
-	private ArrayList<String> sceneStack = new ArrayList<>();
-	private String activeScene = "mainmenu";
+	private HashMap<Scenes, Scene> scenes = new HashMap<>();
+	private ArrayList<Scenes> sceneStack = new ArrayList<>();
+	private Scenes activeScene = Scenes.mainmenu;
 
 // ======================================== CONSTRUCTOR ========================================
 
@@ -25,18 +26,18 @@ public class SceneHandler {
 // ======================================== METHODS ============================================
 
 	private void setUpScenes() {
-		scenes.put("mainmenu", new MainMenu());
-		scenes.put("settingspage", new SettingsPage());
-		scenes.put("gamefield", new GameField());
-		scenes.put("pausemenu", new Pausemenu());
-		scenes.put("keybindings", new Keybindings());
-		scenes.put("endscreen", new Endscreen());
+		scenes.put(Scenes.mainmenu, new MainMenu());
+		scenes.put(Scenes.settingspage, new SettingsPage());
+		scenes.put(Scenes.gamefield, new GameField());
+		scenes.put(Scenes.pausemenu, new Pausemenu());
+		scenes.put(Scenes.keybindings, new Keybindings());
+		scenes.put(Scenes.endscreen, new Endscreen());
 	}
 
 // ======================================== GET/SET METHODS ====================================
 
-	public boolean setSceneActive(String sceneName) {
-		for (String s : scenes.keySet()) {
+	public boolean setSceneActive(Scenes sceneName) {
+		for (Scenes s : scenes.keySet()) {
 			if (s == sceneName) {
 				sceneStack.add(activeScene);
 				activeScene = sceneName;
@@ -51,15 +52,15 @@ public class SceneHandler {
 		return scenes.get(activeScene);
 	}
 
-	public Scene getScene(String scenename) {
-		return scenes.get(scenename);
+	public Scene getScene(Scenes scene) {
+		return scenes.get(scene);
 	}
 
-	public String getlastScene() {
+	public Scenes getlastScene() {
 		return sceneStack.get(sceneStack.size() - 1);
 	}
 	
-	public ArrayList<String> getSceneHistory() {
+	public ArrayList<Scenes> getSceneHistory() {
 		return sceneStack;
 	}
 

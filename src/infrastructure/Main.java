@@ -1,7 +1,7 @@
 package infrastructure;
 
 import libary.MusicController;
-import settings.GeneralSettings;
+import settingsClasses.GeneralSettings;
 
 public class Main {
 	public static GUI gui;

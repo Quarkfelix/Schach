@@ -4,14 +4,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import infrastructure.ButtonHandler;
 import infrastructure.Scene;
 import libary.Button;
-import settings.GeneralSettings;
-import settings.MainMenuSettings;
-import settings.SettingsPageSettings;
+import settingsClasses.GeneralSettings;
+import settingsClasses.MainMenuSettings;
+import settingsClasses.SettingsPageSettings;
 
 public class SettingsPage implements Scene{
 	private String name = "settings";
@@ -78,11 +81,23 @@ public class SettingsPage implements Scene{
 			button.setX(x);
 			button.setWidth(width);
 			button.setHeight(height);
+			button.setBorderActive(false);
+			button.setTextActive(false);
 			
 			button.setTextColor(buttonTextColor);
 			button.setBorderColor(buttonBorderColor);
 			button.setColor(buttonColor);
 		}	
+		
+
+		try {
+//			buttons.get(0).setImg(ImageIO.read(getClass().getClassLoader().getResource("Resume.png")));
+			buttons.get(1).setImg(ImageIO.read(getClass().getClassLoader().getResource("Keybinds.png")));
+			buttons.get(2).setImg(ImageIO.read(getClass().getClassLoader().getResource("Back.png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 // ======================================== GET/SET METHODS ====================================

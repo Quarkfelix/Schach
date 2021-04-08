@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import infrastructure.ButtonHandler;
 import infrastructure.Main;
+import infrastructure.Scenes;
 import libary.Button;
 
 public class GameFieldButtonHandler implements ButtonHandler {
@@ -27,7 +28,7 @@ public class GameFieldButtonHandler implements ButtonHandler {
 	public void checkKeyInput(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_ESCAPE:
-			Main.sc.setSceneActive("pausemenu");
+			Main.sc.setSceneActive(Scenes.pausemenu);
 			break;
 		default:
 			break;
@@ -96,13 +97,13 @@ public class GameFieldButtonHandler implements ButtonHandler {
 			gf.timeBlack = gf.timeBlack + (System.nanoTime() - gf.time0);
 			gf.time0 = System.nanoTime();
 			gf.winner = "white";
-			Main.sc.setSceneActive("endscreen");
+			Main.sc.setSceneActive(Scenes.endscreen);
 		} else if (!whiteKing && blackKing) {
 			gf.moveCountW++;
 			gf.timeWhite = gf.timeWhite + (System.nanoTime() - gf.time0);
 			gf.time0 = System.nanoTime();
 			gf.winner = "black";
-			Main.sc.setSceneActive("endscreen");
+			Main.sc.setSceneActive(Scenes.endscreen);
 		}
 		return false;
 	}

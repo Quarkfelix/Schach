@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import infrastructure.ButtonHandler;
 import infrastructure.Main;
+import infrastructure.Scenes;
 import libary.Button;
 
 public class PausemenuButtonHandler implements ButtonHandler {
@@ -24,7 +25,7 @@ public class PausemenuButtonHandler implements ButtonHandler {
 	public void checkKeyInput(KeyEvent key) {
 		switch (key.getKeyCode()) {
 		case KeyEvent.VK_ESCAPE:
-			Main.sc.setSceneActive("gamefield");
+			Main.sc.setSceneActive(Scenes.gamefield);
 			break;
 
 		default:
@@ -39,17 +40,17 @@ public class PausemenuButtonHandler implements ButtonHandler {
 				switch (button.getText()) {
 				case "RESUME":
 					Main.mc.play("effects", 1, false, true);
-					System.out.println(Main.sc.setSceneActive("gamefield"));
+					System.out.println(Main.sc.setSceneActive(Scenes.gamefield));
 					break;
 
 				case "SETTINGS":
 					Main.mc.play("effects", 1, false, true);
-					System.out.println(Main.sc.setSceneActive("settingspage"));
+					System.out.println(Main.sc.setSceneActive(Scenes.settingspage));
 					break;
 
 				case "MENU":
 					Main.mc.play("effects", 1, false, true);
-					Main.sc.setSceneActive("mainmenu");
+					Main.sc.setSceneActive(Scenes.mainmenu);
 					break;
 				default:
 					throw new IllegalArgumentException("Unexpected value: " + button.getText());

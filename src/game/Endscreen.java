@@ -14,11 +14,12 @@ import javax.swing.ImageIcon;
 import infrastructure.ButtonHandler;
 import infrastructure.Main;
 import infrastructure.Scene;
+import infrastructure.Scenes;
 import libary.Button;
 import libary.TextArea;
-import settings.EndscreenSettings;
-import settings.GeneralSettings;
-import settings.PausemenuSettings;
+import settingsClasses.EndscreenSettings;
+import settingsClasses.GeneralSettings;
+import settingsClasses.PausemenuSettings;
 
 public class Endscreen implements Scene {
 	private Button toMenuButton;
@@ -47,7 +48,7 @@ public class Endscreen implements Scene {
 // ======================================== METHODS ============================================
 	@Override
 	public void onActivation() {
-		GameField gf = (GameField)Main.sc.getScene("gamefield");
+		GameField gf = (GameField)Main.sc.getScene(Scenes.gamefield);
 		//anzahl zuege
 		whiteData.get("Anzahl Zuege").setText(""+gf.getMoveCount("W"));
 		blackData.get("Anzahl Zuege").setText(""+gf.getMoveCount("B"));
@@ -187,7 +188,7 @@ public class Endscreen implements Scene {
 	}
 
 	private void drawBackground(Graphics2D g) {
-		Main.sc.getScene("gamefield").paint(g);
+		Main.sc.getScene(Scenes.gamefield).paint(g);
 		g.setColor(this.backgroundColor);
 		g.fillRect(0, 0, GeneralSettings.screenWidth, GeneralSettings.screenHeight);
 	}

@@ -5,8 +5,9 @@ import java.util.ArrayList;
 
 import infrastructure.ButtonHandler;
 import infrastructure.Main;
+import infrastructure.Scenes;
 import libary.Button;
-import settings.GeneralSettings;
+import settingsClasses.GeneralSettings;
 
 public class SettingsButtonHandler implements ButtonHandler{
 	private ArrayList<Button> buttons;
@@ -44,15 +45,15 @@ public class SettingsButtonHandler implements ButtonHandler{
 					break;
 					
 				case "KEYBINDS":
-					Main.sc.setSceneActive("keybindings");
+					Main.sc.setSceneActive(Scenes.keybindings);
 					
 					break;
 					
 				case "BACK":
-					ArrayList<String> scenehistory = Main.sc.getSceneHistory();
+					ArrayList<Scenes> scenehistory = Main.sc.getSceneHistory();
 					int i = scenehistory.size()-1;
 					for (; i >= 0; i--) {
-						if(scenehistory.get(i) == "mainmenu" || scenehistory.get(i) == "pausemenu") {
+						if(scenehistory.get(i) == Scenes.mainmenu || scenehistory.get(i) == Scenes.pausemenu) {
 							break;
 						}
 					}

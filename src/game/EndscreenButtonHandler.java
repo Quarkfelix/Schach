@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 
 import infrastructure.ButtonHandler;
 import infrastructure.Main;
+import infrastructure.Scenes;
 import libary.Button;
 
 public class EndscreenButtonHandler implements ButtonHandler {
@@ -20,7 +21,7 @@ public class EndscreenButtonHandler implements ButtonHandler {
 	public void checkKeyInput(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_ESCAPE:
-			Main.sc.setSceneActive("mainmenu");
+			Main.sc.setSceneActive(Scenes.mainmenu);
 			break;
 		default:
 			break;
@@ -30,8 +31,8 @@ public class EndscreenButtonHandler implements ButtonHandler {
 	@Override
 	public void checkMouseInput(int x, int y) {
 		if(toMenuButton.contains(x, y)) {
-			Main.sc.setSceneActive("mainmenu");
-			GameField game = (GameField) Main.sc.getScene("gamefield");
+			Main.sc.setSceneActive(Scenes.mainmenu);
+			GameField game = (GameField) Main.sc.getScene(Scenes.gamefield);
 			game.reset();
 		}
 	}
